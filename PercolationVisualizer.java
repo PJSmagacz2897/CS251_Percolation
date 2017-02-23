@@ -12,7 +12,7 @@ public class PercolationVisualizer {
             p.open(x,y);
             for(int i = p.side - 1; i >= 0; i--) {
                 for(int j = 0; j < p.side; j++) {
-                 	if(p.uf.connected(p.top, p.side*i + j)) output += "2 ";
+                 	if(p.uf.connected(p.above, p.side*i + j)) output += "2 ";
                  	else output += p.grid[i][j] + " ";
                 }
                 output += "\n";
