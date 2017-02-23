@@ -1,58 +1,69 @@
-import java.util.*;
-import java.io.*;
+
 public class PercolationStats {
 
-    int experimentsCount;
-    Percolation p;
-    double[] fractions;
+ 
+ 	int iterations;
+ 	Percolation p;
+ 	PercolationQuick pq;
+ 	double[] percents;
+ 	double[] times;
+ 	
 
-    public PercolationStats(int N, int T) {
-        if (N <= 0 || T <= 0) {
-            throw new IllegalArgumentException("Given N <= 0 || T <= 0");
-        }
-        experimentsCount = T;
-        fractions = new double[experimentsCount];
-        for (int expNum = 0; expNum < experimentsCount; expNum++) {
-            pr = new Percolation(N);
-            int openedSites = 0;
-            while (!pr.percolates()) {
-                int i = StdRandom.uniform(1, N + 1);
-                int j = StdRandom.uniform(1, N + 1);
-                if (!pr.isOpen(i, j)) {
-                    pr.open(i, j);
-                    openedSites++;
-                }
+ 	public PercolationStats(int num, int times, String speed) {
+     	if(num >= 0 && times >= 0) {
+         	this.iterations = times;
+         	this.percents = new double[iterations];
+         	this.times = new double[iterations];
+         	int numOpened = 0;
+         	for(int i = 0; i < this.iterations; i++) {
+             	numOpened = 0;
+             	Stopwatch timer = new Stopwatch();
+             	if(speed.equals("fast")) {
+              		this.p = new Percolation(num);
+             		while(numOpened < num || !p.percolates()) {
+             			int x = (int) StdRandom.uniform(0, num);
+             			int y = (int) StdRandom.uniform(0, num);
+                 		if(!p.isOpen(x,y)) {
+                 			p.open(x,y);
+                   	  	numOpened++;
+                 		}	
+                	}
+             	}
+             	else {
+                 	this.pq = new PercolationQuick(num);
+             		while(numOpened < num || !pq.percolates()) {
+             			int x = (int) StdRandom.uniform(0, num);
+             			int y = (int) StdRandom.uniform(0, num);
+                 		if(!pq.isOpen(x,y)) {
+                 			pq.open(x,y);
+                   	  		numOpened++;
+                 		}	
+                	}
+             	}
+             this.percents[i] = (double) numOpened / (num * num);
+             this.times[i] = timer.elapsedTime();
             }
-            double fraction = (double) openedSites / (N * N);
-            fractions[expNum] = fraction;
-        }
-    }
-
-    public double mean() {
-        return StdStats.mean(fractions);
-    }
-
-    public double stddev() {
-        return StdStats.stddev(fractions);
-    }
-
-
-    public double confidenceLo() {
-        return mean() - ((1.96 * stddev()) / Math.sqrt(experimentsCount));
-    }
-
-    public double confidenceHi() {
-        return mean() + ((1.96 * stddev()) / Math.sqrt(experimentsCount));
-    }
-
-    public static void main(String[] args) {
-        int N = Integer.parseInt(args[0]);
-        int T = Integer.parseInt(args[1]);
-        PercolationStats ps = new PercolationStats(N, T);
-
-        String confidence = ps.confidenceLo() + ", " + ps.confidenceHi();
-        StdOut.println("mean                    = " + ps.mean());
-        StdOut.println("stddev                  = " + ps.stddev());
-        StdOut.println("95% confidence interval = " + confidence);
-    }
+     	}
+ 	}
+ 
+ 	public static void main (String[] args) {
+     	if(args.length == 3) {
+            int time = Integer.parseInt(args[0]);
+         	int num = Integer.parseInt(args[1]);
+         	String speed = args[2];
+         	Stopwatch timerTotal = new Stopwatch();
+         	PercolationStats ps = new PercolationStats(num, time, speed);
+         	double runtimeTotal = timerTotal.elapsedTime();
+         	double meanThreshold = StdStats.mean(ps.percents);
+         	double meanTime = StdStats.mean(ps.times);
+         	double sddThreshold = StdStats.stddev(ps.percents);
+         	double sddTime = StdStats.stddev(ps.times);
+         	StdOut.println("**OUTPUT BELOW**");
+         	StdOut.println("mean threshold=" + meanThreshold);
+         	StdOut.println("std dev=" + sddThreshold);
+         	StdOut.println("time=" + runtimeTotal);
+         	StdOut.println("mean time=" + meanTime);
+         	StdOut.println("stddev time=" + sddTime);
+     	} 
+ 	}
 }
