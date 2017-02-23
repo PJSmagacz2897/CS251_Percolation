@@ -46,7 +46,6 @@ public class Percolation {
         }
     }
 
-
     /**
     Returns true if the given cell is open.
     **/
@@ -56,7 +55,6 @@ public class Percolation {
         }
         return false;
     }
-
 
     /**
     Returns true if the given cell is full, i.e. if the given cell is connected to above.
@@ -74,7 +72,6 @@ public class Percolation {
     public boolean percolates() {
         return uf.connected(this.below, this.above);
     }
-
 
     /**
     Takes in a side length n and many pairs of cell coordinates from an input file, and then prints 'Yes' to standard output if the 
