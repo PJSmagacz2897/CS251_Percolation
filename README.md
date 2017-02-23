@@ -13,4 +13,9 @@ This project makes use of stdlib.jar, QuickUnionUF.java and WeightedUnionUF.java
 API for stdlib.jar can be found at http://introcs.cs.princeton.edu/java/stdlib/ and and links to the API's for QuickUnionUF.java and 
 WeightedUnionUF.java can be found at http://algs4.cs.princeton.edu/15uf/.
 
+Percolation.java and PercolationQuick.java implement the same algorithms using different data structures. Percolation.java makes use of 
+WeightedUnionUF.java and PercolationQuick.java makes use of QuickUnionUF.java. Contrary to what their names imply, Peroclation.java is 
+the faster of the two algorithms. Their runtimes are compared in PercolationStats.java and their output is visualized in 
+PercolationVisualizer.java.
+
 Assignment given by Xavier Tricoche in Purdue's CS251, Spring 2017.
