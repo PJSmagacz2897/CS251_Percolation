@@ -62,15 +62,15 @@ public class PercolationQuick {
     }
 
 
-    //public static void main(String[] args) {
-    //  int n = StdIn.readInt();
-    //  Percolation p = new Percolation(n);
-    //   while (!StdIn.isEmpty()) {
-    //       int x = StdIn.readInt();
-    //       int y = StdIn.readInt();
-    //       p.open(x,y);
-    //   }
-    //   if(p.percolates()) StdOut.println("Yes");
-    //   else StdOut.println("No");
-    // }
+    public static void main(String[] args) {
+        int n = StdIn.readInt();
+        PercolationQuick p = new PercolationQuick(n);
+        while (!StdIn.isEmpty()) {
+            int x = StdIn.readInt();
+            int y = StdIn.readInt();
+            p.open(x,y);
+        }
+        if(p.percolates()) StdOut.println("Yes");
+        else StdOut.println("No");
+    }
 }
