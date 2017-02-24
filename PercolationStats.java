@@ -2,13 +2,17 @@
 public class PercolationStats {
 
  
- 	int iterations;
- 	Percolation p;
- 	PercolationQuick pq;
- 	double[] percents;
- 	double[] times;
+ 	int iterations;            //The number of times the code runs
+ 	Percolation p;             //Used for fast percolations
+ 	PercolationQuick pq;       //Used for slow percolations
+ 	double[] percents;         //array holding the percentages of open cells needed for a system to percolate for each iteration
+ 	double[] times;            //array holding the runtime of each iteration
  	
-
+  /**
+  Creates a num by num system and opens random cells until the system percolates. This is repreated times times. Each iteration's 
+  percentage of open cells and runtime are stored in this.percents[i] and this.times[i] respectively. Uses either p or pq depending on 
+  whether speed is 'fast' or 'slow', respectively.
+  **/
  	public PercolationStats(int num, int times, String speed) {
      	if(num >= 0 && times >= 0) {
          	this.iterations = times;
@@ -46,9 +50,13 @@ public class PercolationStats {
      	}
  	}
  
+ /**
+ Takes in num, time, and speed from the command line. Outputs total runtime, the average percentage of cells needed to percolate,
+ the average runtime, and the standard deviations for percentage and runtime to standard output.
+ **/
  	public static void main (String[] args) {
      	if(args.length == 3) {
-            int time = Integer.parseInt(args[0]);
+          int time = Integer.parseInt(args[0]);
          	int num = Integer.parseInt(args[1]);
          	String speed = args[2];
          	Stopwatch timerTotal = new Stopwatch();
