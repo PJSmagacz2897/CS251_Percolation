@@ -1,6 +1,9 @@
 import java.io.*;
 public class PercolationVisualizer {
 
+       /**
+       Outputs a visualization of the system after every time a cell is opened to both standard output and 'visualMatrix.txt'
+       **/       
        public static void main(String[] args) {
         int n = StdIn.readInt();
         Percolation p = new Percolation(n);
