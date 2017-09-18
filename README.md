@@ -17,5 +17,3 @@ Percolation.java and PercolationQuick.java implement the same algorithms using d
 WeightedUnionUF.java and PercolationQuick.java makes use of QuickUnionUF.java. Contrary to what their names imply, Peroclation.java is 
 the faster of the two algorithms. Their runtimes are compared in PercolationStats.java and their output is visualized in 
 PercolationVisualizer.java.
-
-Assignment given by Xavier Tricoche in Purdue's CS251, Spring 2017.
